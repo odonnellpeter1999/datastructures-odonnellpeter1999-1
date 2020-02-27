@@ -52,6 +52,8 @@ public static final int CAPACITY = 5;
 				size++;
 			}
 			
+		//	System.out.println("ENQUEUE:FRONT=" + front + ":REAR=" + rear);
+			
 		} else {
 			throw new IllegalArgumentException("ERROR QUEUE IS AT FULL CAPACITY");
 		}
@@ -74,8 +76,11 @@ public static final int CAPACITY = 5;
 		E result = data[front];
 		data[front] = null;
 		front++;
+		if(front == CAPACITY) {
+			front = 0;
+		}
 		size--;
-		
+		//System.out.println("DEQUEUE:FRONT=" + front + ":REAR=" + rear);
 		return result;
 		
 		
@@ -85,21 +90,41 @@ public static final int CAPACITY = 5;
 	public String toString() {
 		String result = null;
 		int i = front;
-		if(front == -1 ) {
+//		if(front == -1 ) {
+//			return null;
+//		} else {
+//			while(i != rear) {
+//				if(i == CAPACITY) {
+//					i = 0;
+//				} else if(result == null) {
+//					result = data[i].toString();
+//					i++;
+//				} else {
+//					result = result + data[i].toString();
+//					i++;
+//				}
+//				
+//			}
+//			return result;
+//		}
+		
+		if(front == -1) {
 			return null;
 		} else {
-			while(i != rear + 1) {
-				if(i == CAPACITY) {
+			for(int j = 0;j == size;j++) {
+				if(i+j == CAPACITY) {
 					i = 0;
 				} else if(result == null) {
-					result = data[i].toString();
+					result = data[i+j].toString();
+					
 				} else {
-					result = result + data[i].toString();
+					result = result + data[i+j].toString();
+					
 				}
-				i++;
 			}
-			return result;
 		}
+		
+		return result;
 	}
 	
 	public static void main(String[] args) {
@@ -119,11 +144,12 @@ public static final int CAPACITY = 5;
 		aq.enqueue("Jesus");
 		aq.enqueue("WonderKid");
 		System.out.println(aq.toString());
-		aq.dequeue();
-		System.out.println(aq.toString());
-		System.out.println(aq.isEmpty());
 //		aq.dequeue();
 //		System.out.println(aq.toString());
+//		System.out.println(aq.isEmpty());
+//		aq.dequeue();
+//		System.out.println(aq.toString());
+		
 	}
 
 }
