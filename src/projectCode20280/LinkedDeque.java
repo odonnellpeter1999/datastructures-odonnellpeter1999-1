@@ -6,13 +6,13 @@ public class LinkedDeque<E> implements Deque<E> {
 		// TODO Auto-generated method stub
 
 	}
-
+	
 	@Override
 	public int size() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
+	
 	@Override
 	public boolean isEmpty() {
 		// TODO Auto-generated method stub

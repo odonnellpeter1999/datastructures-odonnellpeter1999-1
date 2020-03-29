@@ -5,9 +5,9 @@ import java.util.LinkedList;
 
 public class SinglyLinkedList<E> implements List<E> {
 
-	Node<E> head;
-	Node<E> tail;
-	int size = 0;
+	private Node<E> head;
+	private Node<E> tail;
+	private int size = 0;
 
 	private static class Node<E> {
 
@@ -119,7 +119,7 @@ public class SinglyLinkedList<E> implements List<E> {
 				temp = head;
 				head = head.getNext();
 				size--;
-				return head.getElement();
+				return temp.getElement();
 			} else {
 				
 				previousNode = currentNode;
@@ -128,9 +128,9 @@ public class SinglyLinkedList<E> implements List<E> {
 				for (int j = 1; j < size; j++) {
 					if (i== j) {
 						temp = currentNode;
-						previousNode.next = currentNode.getNext();
+						previousNode.next= currentNode.getNext();
 						size--;
-						return currentNode.getElement();
+						return temp.getElement();
 					} else {
 						previousNode = currentNode;
 						currentNode = currentNode.getNext();	
@@ -210,53 +210,59 @@ public class SinglyLinkedList<E> implements List<E> {
 	public String toString() {
 
 		Node<E> currentNode = head;
-		String result = null;
+		StringBuilder sb = new StringBuilder();
+		
 		for (int i = 0; i < size; i++) {
 
 			if (i == 0) {
-				result = currentNode.getElement().toString();
+				sb.append("[" + currentNode.getElement().toString() + ", ");
 			} else {
-				result = result + currentNode.getElement();
+				sb.append(currentNode.getElement() + ", ");
 			}
 			currentNode = currentNode.next;
 
 		}
+		
+		sb.append("]");
 
-		return result;
+		return sb.toString();
 	}
+	
 
 	public static void main(String[] args) {
-		SinglyLinkedList<Integer> ll = new SinglyLinkedList<Integer>();
-
+//		SinglyLinkedList<Integer> ll = new SinglyLinkedList<Integer>();
+//
+////		for (int i = 0; i < 5; i++) {
+////			ll.add(0, 1);
+////		}
 //		for (int i = 0; i < 5; i++) {
-//			ll.add(0, 1);
+//			ll.addFirst(i);
 //		}
-		for (int i = 0; i < 5; i++) {
-			ll.addFirst(i);
-		}
-		for (int i = 0; i < 5; i++) {
-			ll.addLast(i);
-		}
-
-		System.out.println();
-
-		for (int i = 0; i < 5; i++) {
-			System.out.println(ll.get(i));
-		}
-
-		for (int i = 0; i < 5; i++) {
-			System.out.println(ll.get(i));
-		}
-
-		System.out.println(ll.isEmpty());
-
-		System.out.println(ll.toString());
-
-
-		while(ll.size() != 0) {
-		ll.removeFirst();
-		System.out.println(ll.size());
-		System.out.println(ll.toString());
-		}
+//		for (int i = 0; i < 5; i++) {
+//			ll.addLast(i);
+//		}
+//
+//		System.out.println();
+//
+//		for (int i = 0; i < 5; i++) {
+//			System.out.println(ll.get(i));
+//		}
+//
+//		for (int i = 0; i < 5; i++) {
+//			System.out.println(ll.get(i));
+//		}
+//
+//		System.out.println(ll.isEmpty());
+//
+//		System.out.println(ll.toString());
+//
+//
+//		while(ll.size() != 0) {
+//		ll.removeFirst();
+//		System.out.println(ll.size());
+//		System.out.println(ll.toString());
+//		}
 	}
+	
+	
 }

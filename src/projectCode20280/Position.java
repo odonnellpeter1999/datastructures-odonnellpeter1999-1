@@ -1,5 +1,7 @@
 package projectCode20280;
 
+import projectCode20280.LinkedBinaryTree.Node;
+
 /**
  * An interface for a position which is an abstraction for the
  * location at which a single element is stored in a positional
@@ -13,4 +15,6 @@ public interface Position<E> {
    * @throws IllegalStateException if position no longer valid
    */
   E getElement() throws IllegalStateException;
+
+	
 }

@@ -10,12 +10,10 @@ public class ArrayStack<E> implements Stack<E> {
 		this(CAPACITY);
 	}
 	
-	
 	@SuppressWarnings({"unchecked"})
 	public ArrayStack(int capacity) {
 		data = (E[]) new Object[capacity];
 	}
-	
 	
 	
 
@@ -52,18 +50,16 @@ public class ArrayStack<E> implements Stack<E> {
 	}
 	@Override 
 	public String toString() {
-		String result = null;
-		for(int i =0;i<top;i++) {
-			
-			if(result == null) {
-				result = data[i].toString();
-			} else {
-				result = result + data[i].toString();
-			}
-			
-		}
+		StringBuilder sb = new StringBuilder();
 		
-		return result;
+		sb.append("[");
+		for(int i = top;i >= 0 ;i--) {
+			sb.append(data[i] + ", ");
+			
+			}
+		
+		sb.append("]");
+		return sb.toString();
 	}
 	
 	public static void main(String[] args) {
@@ -72,11 +68,11 @@ public class ArrayStack<E> implements Stack<E> {
 		as.push("H");
 		as.push("A");
 		as.push("A");
-		System.out.println(as.toString());
+	//	System.out.println(as.toString());
 		System.out.print(as.pop());
 		System.out.print(as.pop());
 		System.out.print(as.pop());
-		System.out.println(as.toString());
+		System.out.println(as);
 
 	}
 

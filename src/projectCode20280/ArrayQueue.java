@@ -7,13 +7,13 @@ public static final int CAPACITY = 5;
 	private E[] data;
 	private int front = -1;
 	private int rear = -1;
-	
+
 	private int size = 0;
 	
 	public ArrayQueue() {
 		this(CAPACITY);
 	}
-	
+
 	
 	@SuppressWarnings({"unchecked"})
 	public ArrayQueue(int capacity) {
@@ -52,8 +52,6 @@ public static final int CAPACITY = 5;
 				size++;
 			}
 			
-		//	System.out.println("ENQUEUE:FRONT=" + front + ":REAR=" + rear);
-			
 		} else {
 			throw new IllegalArgumentException("ERROR QUEUE IS AT FULL CAPACITY");
 		}
@@ -88,43 +86,20 @@ public static final int CAPACITY = 5;
 	
 	@Override
 	public String toString() {
-		String result = null;
+		StringBuilder sb = new StringBuilder();
 		int i = front;
-//		if(front == -1 ) {
-//			return null;
-//		} else {
-//			while(i != rear) {
-//				if(i == CAPACITY) {
-//					i = 0;
-//				} else if(result == null) {
-//					result = data[i].toString();
-//					i++;
-//				} else {
-//					result = result + data[i].toString();
-//					i++;
-//				}
-//				
-//			}
-//			return result;
-//		}
 		
-		if(front == -1) {
-			return null;
-		} else {
-			for(int j = 0;j == size;j++) {
-				if(i+j == CAPACITY) {
-					i = 0;
-				} else if(result == null) {
-					result = data[i+j].toString();
-					
-				} else {
-					result = result + data[i+j].toString();
-					
-				}
-			}
+		sb.append("[");
+		for(;i<=rear;i++) {
+			
+			sb.append(data[i] + ", ");
+			
 		}
+		sb.append("]");
 		
-		return result;
+		
+		
+		return sb.toString();
 	}
 	
 	public static void main(String[] args) {

@@ -129,6 +129,10 @@ public class DoublyLinkedList<E> implements List<E>{
 			throw new IllegalArgumentException("OUT OF BOUNDS:add()");
 		}
 	}
+	
+	public E first() {
+		return head.getElement();
+	}
 
 	@Override
 	public E remove(int i) {
@@ -148,7 +152,7 @@ public class DoublyLinkedList<E> implements List<E>{
 				temp = head;
 				head = head.getNext();
 				size--;
-				return head.getElement();
+				return temp.getElement();
 			} else {
 				
 				previousNode = currentNode;
@@ -159,7 +163,7 @@ public class DoublyLinkedList<E> implements List<E>{
 						temp = currentNode;
 						previousNode.next = currentNode.getNext();
 						size--;
-						return currentNode.getElement();
+						return temp.getElement();
 					} else {
 						previousNode = currentNode;
 						currentNode = currentNode.getNext();	
@@ -239,19 +243,22 @@ public class DoublyLinkedList<E> implements List<E>{
 	public String toString() {
 
 		Node<E> currentNode = head;
-		String result = null;
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("[");
 		for (int i = 0; i < size; i++) {
 
 			if (i == 0) {
-				result = currentNode.getElement().toString();
+				sb.append(currentNode.getElement() + ", ");
 			} else {
-				result = result + currentNode.getElement();
+				sb.append(currentNode.getElement()  + ", ");
 			}
 			currentNode = currentNode.next;
 
 		}
+		sb.append("]");
 
-		return result;
+		return sb.toString();
 	}
 	
 	

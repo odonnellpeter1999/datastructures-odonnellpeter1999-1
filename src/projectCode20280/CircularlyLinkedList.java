@@ -114,7 +114,7 @@ public class CircularlyLinkedList<E> implements List<E> {
 				temp = head;
 				head = head.getNext();
 				size--;
-				return head.getElement();
+				return temp.getElement();
 			} else {
 				
 				previousNode = currentNode;
@@ -205,19 +205,21 @@ public class CircularlyLinkedList<E> implements List<E> {
 	public String toString() {
 
 		Node<E> currentNode = head;
-		String result = null;
+		StringBuilder sb = new StringBuilder();
+		sb.append("[");
 		for (int i = 0; i < size; i++) {
 
 			if (i == 0) {
-				result = currentNode.getElement().toString();
+				sb.append(currentNode.getElement() + ", ");
 			} else {
-				result = result + currentNode.getElement();
+				sb.append(currentNode.getElement() + ", ");
 			}
 			currentNode = currentNode.next;
 
 		}
 
-		return result;
+		sb.append("]");
+		return sb.toString();
 	}
 		
 

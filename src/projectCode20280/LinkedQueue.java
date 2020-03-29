@@ -5,7 +5,7 @@ public class LinkedQueue<E> implements Queue<E> {
 	SinglyLinkedList<E> ll = new SinglyLinkedList<E>();
 
 	public static void main(String[] args) {
-		
+
 		
 		LinkedQueue<String> lq = new LinkedQueue<String>();
 		
