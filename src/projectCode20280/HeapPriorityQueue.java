@@ -23,7 +23,7 @@ public class HeapPriorityQueue<K,V> extends AbstractPriorityQueue<K,V> {
    * @param comp comparator defining the order of keys in the priority queue
    */
   public HeapPriorityQueue(Comparator<K> comp) { super(comp); }
-
+  
   /**
    * Creates a priority queue initialized with the respective
    * key-value pairs.  The two arrays given will be paired
@@ -149,11 +149,11 @@ public class HeapPriorityQueue<K,V> extends AbstractPriorityQueue<K,V> {
   @Override
   public Entry<K,V> removeMin() {
 	  if(heap.isEmpty()) return null;
-	  Entry<K, V> answer = heap.get(0);
+	  Entry<K, V> result = heap.get(0);
 	  swap(0,heap.size() - 1);
 	  heap.remove(heap.size() - 1);
 	  downheap(0);
-	  return answer;
+	  return result;
   };
 
   /** Used for debugging purposes only */
@@ -162,9 +162,9 @@ public class HeapPriorityQueue<K,V> extends AbstractPriorityQueue<K,V> {
       int left = left(j);
       int right = right(j);
       if (left < heap.size() && compare(heap.get(left), heap.get(j)) < 0)
-        System.out.println("Invalid left child relationship");
+        System.out.println("Invalid left child");
       if (right < heap.size() && compare(heap.get(right), heap.get(j)) < 0)
-        System.out.println("Invalid right child relationship");
+        System.out.println("Invalid right child");
     }
   }
 }

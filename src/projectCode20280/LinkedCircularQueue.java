@@ -14,35 +14,54 @@ public class LinkedCircularQueue<E> implements Queue<E> {
 		// TODO Auto-generated method stub
 
 	}
+	
+	
+	CircularlyLinkedList<E> queue;
+	
+	/**
+	 * Constructor to initialize list 
+	 */
+	public LinkedCircularQueue() {
+		
+		queue = new CircularlyLinkedList<E>();
+	}
 
+	
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return queue.size();
 	}
-
+	
+	
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return queue.isEmpty();
 	}
 
+	/**
+	 *Method adds element to the front of the queue
+	 *@param E element to be added to front of queue
+	 */
 	@Override
 	public void enqueue(E e) {
-		// TODO Auto-generated method stub
-
+		queue.addLast(e); 
 	}
 
+	/**
+	 *Method gets but does not remove first element in list
+	 *@param E element at front of queue
+	 */
 	@Override
 	public E first() {
-		// TODO Auto-generated method stub
-		return null;
+		return queue.get(0);
+
 	}
 
+	/**
+	 *Method removes and returns element at front of the queue
+	 */
 	@Override
 	public E dequeue() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		return queue.removeFirst(); }
 
 }
