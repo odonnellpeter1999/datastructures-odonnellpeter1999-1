@@ -31,6 +31,7 @@ public class ChainHashMap<K, V> extends AbstractHashMap<K, V> {
 	@SuppressWarnings({ "unchecked" })
 	protected void createTable() {
 
+		table= (UnsortedTableMap<K,V>[]) new UnsortedTableMap[capacity];
 	}
 
 	/**
@@ -43,7 +44,16 @@ public class ChainHashMap<K, V> extends AbstractHashMap<K, V> {
 	 */
 	@Override
 	protected V bucketGet(int h, K k) {
-		return null;
+		UnsortedTableMap<K, V> bucket = table[h];
+		
+		
+		if(bucket!= null) {
+			return bucket.get(k);
+			
+		} else {
+			return null;
+		}
+		
 	}
 
 	/**
@@ -57,7 +67,23 @@ public class ChainHashMap<K, V> extends AbstractHashMap<K, V> {
 	 */
 	@Override
 	protected V bucketPut(int h, K k, V v) {
-		return null;
+		UnsortedTableMap<K, V> bucket = table[h];
+		
+		if(bucket == null) {
+			
+			bucket = new UnsortedTableMap<K,V>();
+			table[h] = bucket;
+			
+		}
+			int previous_size = bucket.size();
+			V old = bucket.put(k, v);
+			n += (bucket.size() - previous_size);
+//			System.out.println("bucketput" + h + ", " + k + "," + v + "," + bucket);
+			
+			return old;
+		
+		
+		
 	}
 
 	/**
@@ -70,7 +96,16 @@ public class ChainHashMap<K, V> extends AbstractHashMap<K, V> {
 	 */
 	@Override
 	protected V bucketRemove(int h, K k) {
-		return null;
+		UnsortedTableMap<K,V> bucket = table[h];
+		
+		if(bucket == null) {
+			return null;
+		}
+		
+		int prev_size = bucket.size();
+		V old = bucket.remove(k);
+		n -= (prev_size - bucket.size());
+		return old;
 	}
 
 	/**
@@ -80,12 +115,36 @@ public class ChainHashMap<K, V> extends AbstractHashMap<K, V> {
 	 */
 	@Override
 	public Iterable<Entry<K, V>> entrySet() {
-		return null;
+		
+		ArrayList<Entry<K,V>> res = new ArrayList<Entry<K,V>>();
+		
+		for (int i = 0; i < capacity; i++) {
+			UnsortedTableMap<K, V> bucket = table[i];
+			
+			if(bucket != null) {
+				for(Entry<K,V> entry: bucket.entrySet()) {
+					res.add(entry);
+					
+				}
+			}
+		}
+		
+		return res;
 	}
+	
+	public String toString() {
+		return entrySet().toString();
+	}
+	
+	
 	
 	public static void main(String[] args) {
 		//HashMap<Integer, String> m = new HashMap<Integer, String>();
 		ChainHashMap<Integer, String> m = new ChainHashMap<Integer, String>();
+					
+		m.remove(1);
+		
+		System.out.println("size after:" + m.size());
 		m.put(1, "One");
 		m.put(10, "Ten");
 		m.put(11, "Eleven");
