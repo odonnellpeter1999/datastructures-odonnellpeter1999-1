@@ -47,12 +47,7 @@ public class ChainHashMap<K, V> extends AbstractHashMap<K, V> {
 		UnsortedTableMap<K, V> bucket = table[h];
 		
 		
-		if(bucket!= null) {
-			return bucket.get(k);
-			
-		} else {
-			return null;
-		}
+		return bucket == null ? null : bucket.get(k);
 		
 	}
 
@@ -137,22 +132,13 @@ public class ChainHashMap<K, V> extends AbstractHashMap<K, V> {
 	}
 	
 	
-	
 	public static void main(String[] args) {
 		//HashMap<Integer, String> m = new HashMap<Integer, String>();
 		ChainHashMap<Integer, String> m = new ChainHashMap<Integer, String>();
 					
-		m.remove(1);
+		System.out.println("Size before:" + m.size() );
+		String n = m.put(1, "One");
+		System.out.println("Size after " + m.size() + "->" + n);
 		
-		System.out.println("size after:" + m.size());
-		m.put(1, "One");
-		m.put(10, "Ten");
-		m.put(11, "Eleven");
-		m.put(20, "Twenty");
-		
-		System.out.println("m: " + m);
-		
-		m.remove(11);
-		System.out.println("m: " + m);
 	}
 }

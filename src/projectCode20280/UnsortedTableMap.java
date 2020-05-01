@@ -50,7 +50,11 @@ public class UnsortedTableMap<K, V> extends AbstractMap<K, V> {
 	@Override
 	public V get(K key) {
 		int table_index = findIndex(key);
+		if(table_index != -1)
 		return table.get(table_index).getValue();
+		else {
+			return null;
+		}
 	}
 
 	/**
@@ -93,7 +97,17 @@ public class UnsortedTableMap<K, V> extends AbstractMap<K, V> {
 		if(table_index == -1) {
 			return null;
 		} else {
-			return table.remove(table_index).getValue();
+			
+			
+			
+			V old =table.get(table_index).getValue();
+			
+			if(table_index != table.size() -1 ) {
+			table.set(table_index, table.get(table.size()-1));
+			
+			}
+			table.remove(table.size()-1);
+			return old; 
 		}
 		
 	}

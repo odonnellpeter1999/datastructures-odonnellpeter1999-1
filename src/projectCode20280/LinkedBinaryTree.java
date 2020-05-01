@@ -1,7 +1,9 @@
 package projectCode20280;
 
 import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.Queue;
+
+
 
 /**
  * Concrete implementation of a binary tree using a node-based, linked
@@ -16,6 +18,7 @@ public class LinkedBinaryTree<E extends Comparable<E>> extends AbstractBinaryTre
 		private Node<E> left;
 		private Node<E> right;
 
+
 		public Node(E element, Node<E> parent, Node<E> left, Node<E> right) {
 			super();
 			this.element = element;
@@ -28,6 +31,9 @@ public class LinkedBinaryTree<E extends Comparable<E>> extends AbstractBinaryTre
 		public E getElement() {
 			return element;
 		}
+
+  /** Nested static class for a binary tree node. */
+  
 
 		public void setElement(E element) {
 			this.element = element;
@@ -55,6 +61,11 @@ public class LinkedBinaryTree<E extends Comparable<E>> extends AbstractBinaryTre
 
 		public void setRight(Node<E> right) {
 			this.right = right;
+		}
+		
+		public String toString() {
+			
+			return new StringBuilder("(").append(element).append(")").toString();
 		}
 
 	}
@@ -178,6 +189,7 @@ public class LinkedBinaryTree<E extends Comparable<E>> extends AbstractBinaryTre
 			throw new IllegalArgumentException("tree is not empty");
 		} else {
 			root = createNode(e, null, null, null);
+			size++;
 			return root;
 		}
 		
@@ -295,22 +307,44 @@ public class LinkedBinaryTree<E extends Comparable<E>> extends AbstractBinaryTre
 	public E remove(Position<E> p) throws IllegalArgumentException {
 
 		if(p == null) {
-			throw new IllegalArgumentException("Cannot remove a null psoition");
+			throw new IllegalArgumentException("Cannot remove a null position");
 		}
 		
 		E result = p.getElement();
 
 		Node<E> node = validate(p);
+		
 		if (node.getLeft() != null && node.getRight() != null) {
 			throw new IllegalArgumentException("Position has two children");
-		} else if (node.getLeft() == null) {
-			node.getParent().setElement(node.getRight().getElement());
-			node.getParent().setRight(node.getRight());
-
-		} else {
-			node.getParent().setElement(node.getLeft().getElement());
-			node.getParent().setLeft(node.getLeft());
 		}
+
+		if(node != root)
+		if(node.getParent().getLeft() == node ) {
+			
+			if(node.getLeft() == null && node.getRight() != null) {
+				node.getParent().setLeft(node.getRight());
+			}
+			
+			if(node.getLeft() != null && node.getRight() == null) {
+				node.getParent().setLeft(node.getLeft());
+			}
+			
+		}
+		
+		if(node != root)
+		if(node.getParent().getRight() == node ) {
+			
+			if(node.getLeft() == null && node.getRight() != null) {
+				node.getParent().setRight(node.getRight());
+			}
+			
+			if(node.getLeft() != null && node.getRight() == null) {
+				node.getParent().setRight(node.getLeft());
+			}
+			
+		}
+		size--;
+		
 
 		return result;
 	}
@@ -390,24 +424,7 @@ public class LinkedBinaryTree<E extends Comparable<E>> extends AbstractBinaryTre
 
 	}
 
-	public LinkedList<E> heapSort(LinkedList<E> list) {
-
-		LinkedBinaryTree<E> tree = new LinkedBinaryTree<E>();
-
-		if (list.isEmpty()) {
-			return null;
-		}
-
-		for (int i = 0; i < list.size(); i++) {
-			tree.insert(list.get(i));
-		}
-
-		System.out.println("List in Heapsort Before: " + tree.toString());
-		tree.maxHeap(root);
-		System.out.println("List in Heapsort After: " + tree.toString());
-
-		return list;
-	}
+	
 
 	@Override
 	public String toString() {
@@ -417,21 +434,198 @@ public class LinkedBinaryTree<E extends Comparable<E>> extends AbstractBinaryTre
 			sb.append(p.getElement());
 			sb.append(", ");
 		}
+		sb.delete(sb.lastIndexOf(", "),sb.lastIndexOf(", ") + 2);
 		sb.append("]");
 		return sb.toString();
 	}
+	
+	public void levelOrderInsert(E e) {
+		
+		
+		LinkedQueue<Node> q = new LinkedQueue<Node>();
+		
+		if(root != null) {
+		q.enqueue(root);
+		} else {
+			root = createNode(e, null, null, null);
+			size++;
+			return;
+		}
+		
+		while(!q.isEmpty()) {
+			Node node = q.dequeue();
+			
+			if(node.left == null) {
+				node.left = createNode(e, node,null, null);
+				size++;
+				return;
+			} else {
+				q.enqueue(node.left);
+			}
+			
+			if(node.right == null) {
+				node.right = createNode(e, node,null, null);
+				size++;
+				return;
+			} else {
+				q.enqueue(node.right);
+			}
+		}
+		
+		
+		
+	}
+	
+	
+	//testing function
+	public void createLevelOrder(E[] arr) {
+		
+		for(int i = 0;i<arr.length;i++) {
+		
+			levelOrderInsert((E) arr[i]);
+		}
+		
+		
+	}
+	
+	//Assignment 2 Code------------------------------------------------------------------------------------- 
+	public boolean isMirrored(Node a,Node b) {
+		
+		if(a == null || b == null)
+			return true;
+		
+		
+		return (a != null && b != null) && isMirrored(a.left,b.right) && isMirrored(a.right,b.left);
+		
+	}
+	
+	
+	public boolean isMirrored(Node root) {
+		return isMirrored(root.right, root.left);
+	}
+	
+	
+	public void mirror(Node root) {
+		
+		if(root == null) {
+			return;
+		} else {
+			swapChildren(root);
+			mirror(root.getLeft());
+			mirror(root.getRight());
+		}
+		
+	}
+
+	public void swapChildren(Node root) {
+		if(root != null) {
+			Node temp = root.getRight();
+			root.setRight(root.getLeft());
+			root.setLeft(temp);
+		} else {
+			throw new IllegalArgumentException("Root is empty");
+		}
+	}
+	
+	public void mirror() {
+		mirror(root);
+	}
+	
+	
+	public String calculateBinary(Node<E> number,Node<E> root) {
+		
+		
+		StringBuilder sb = new StringBuilder("");
+		if(root == null) {
+			return "";
+		}
+		
+		if(root.getElement() == number.getElement()) {
+			return "";
+		}
+		
+		if(root.getElement().compareTo(number.getElement()) < 0) {
+			sb.append("1");
+			sb.append(calculateBinary(number, root.getRight()));
+
+		} else {
+			sb.append("0");
+			sb.append(calculateBinary(number, root.getLeft()));
+		}
+		
+		return sb.toString();
+		
+	}
+	
+	public String calculateBinary(Position<E> number,Position<E> root) {
+		Node <E>numberN = validate(number);
+		Node <E> rootN = validate(root);
+		
+		return calculateBinary(numberN, rootN);
+	}
+	
+	
+	public int dist(Node<E> number1,Node<E> number2) {
+		
+		String s1 = calculateBinary(number1, root);
+		String s2 = calculateBinary(number2, root);
+		
+		for(int i = 0;i<s1.length() && i < s2.length();i++) {
+			if(s1.charAt(i) != s2.charAt(i)) {
+				return (s1.length() -i) + (s2.length()-i);
+			}
+		}
+		
+		if(s1.length() == s2.length()) {
+			return 0;
+		} else if(s1.length() > s2.length()) {
+			return s1.length() - s2.length(); 
+		} else {
+			return s2.length() - s2.length();
+		}
+	}
+	
+	
+	public int dist(Position<E> number1,Position<E> number2) {
+		Node <E>number1N = validate(number1);
+		Node <E> number2N = validate(number2);
+		
+		return dist(number1N,number2N);
+		
+	}
+	
+	
+	
+			
+		
+	
 
 	public static void main(String[] args) {
 		LinkedBinaryTree<Integer> bt = new LinkedBinaryTree<Integer>();
 
-		int[] arr = { 12, 25, 31, 58, 36, 42, 90, 62, 75 };
-		LinkedList<Integer> list = new LinkedList<Integer>();
+		int[] arr = { 44, 17,88, 8, 32,65 , 97, 28,54,82,93,21,29,76,80 };
+		SinglyLinkedList<Integer> list = new SinglyLinkedList<Integer>();
 		for (int i = 0; i < arr.length; i++) {
 			 bt.insert(arr[i]);
 		}
 		
 		System.out.println(bt);
-
-
+		
+//		bt.mirror();
+//		
+//		System.out.println(bt);
+		
+		System.out.println(bt.calculateBinary(bt.left(bt.left(bt.right(bt.root()))),bt.root()));
+		System.out.println(bt.calculateBinary(bt.left(bt.right(bt.right(bt.root()))),bt.root()));
+		
+		System.out.println(bt.dist(bt.left(bt.left(bt.right(bt.root()))), bt.left(bt.right(bt.right(bt.root())))));
+		
+		System.out.println(bt.calculateBinary(bt.right(bt.left(bt.right(bt.left(bt.right(bt.root()))))), bt.root()));
+		System.out.println(bt.calculateBinary(bt.left(bt.left(bt.right(bt.left(bt.root())))), bt.root()));
+		
+		System.out.println();
+		
+		System.out.println(bt.dist(bt.right(bt.left(bt.right(bt.left(bt.right(bt.root()))))), bt.left(bt.left(bt.right(bt.left(bt.root()))))));
+		
 	}
 }

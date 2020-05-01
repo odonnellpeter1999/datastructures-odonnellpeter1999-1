@@ -19,7 +19,6 @@ public class LinkedQueue<E> implements Queue<E> {
 		lq.dequeue();
 		lq.dequeue();
 		System.out.println(lq.toString());
-		lq.enqueue("Jesus");
 		lq.enqueue("WonderKid");
 		System.out.println(lq.toString());
 		lq.dequeue();
@@ -51,7 +50,7 @@ public class LinkedQueue<E> implements Queue<E> {
 	@Override
 	public E first() {
 		
-		return ll.get(0);
+		return ll.first();
 	}
 
 	@Override

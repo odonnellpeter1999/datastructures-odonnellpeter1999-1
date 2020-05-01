@@ -9,46 +9,67 @@ public class SinglyLinkedList<E> implements List<E> {
 	private Node<E> tail;
 	private int size = 0;
 
+	//Node class
 	private static class Node<E> {
 
+		//Object which is held in the node
 		private E element;
 
+		//Pointer to next node
 		private Node<E> next;
 
+		
 		public Node(E e, Node<E> n) {
 			element = e;
 			next = n;
 		}
 
+		
+		/**	This method returns element from node
+		 * @return Element stored in Node
+		 */
 		public E getElement() {
 			return element;
 		}
 
+		/** This method adds element to Node
+		 * @param element to be set in Node 
+		 */
 		public void setElement(E element) {
 			this.element = element;
 		}
 
+		/** This method gets Node which variable next is pointing to
+		 * @return Node which next is pointing to
+		 */
 		public Node<E> getNext() {
 			return next;
 		}
 
+		/** This method sets the Node which variable next is pointing to
+		 * @param Node to be set at variable next within current node
+		 */
 		public void setNext(Node<E> n) {
 			next = n;
 		}
 
 	}
 
+	
+	/**
+	 *@return returns true if empty and false if not empty
+	 */
 	@Override
 	public boolean isEmpty() {
 
-		if (size == 0) {
-			return true;
-		} else {
-			return false;
-		}
-
+		return(size <= 0);
 	}
 
+	/**
+	 * This method returns the element currently placed at given index i without removing the element
+	 * @param index i of element in list you wish to get
+	 * @return element placed at index i or null if element does not exist
+	 */
 	@Override
 	public E get(int i) {
 
@@ -71,6 +92,12 @@ public class SinglyLinkedList<E> implements List<E> {
 
 	}
 
+	/**
+	 *This method adds the given element e to the LinkedList at index i
+	 *@param index i of the place you wish to place element e
+	 *@param element e which you wish to add to the linkedlist
+	 *
+	 */
 	@Override
 	public void add(int i, E e) {
 
@@ -101,6 +128,12 @@ public class SinglyLinkedList<E> implements List<E> {
 		}
 	}
 
+	/**
+	 *This method adds the given element e to the LinkedList at index i
+	 *@param index i of the place you wish to remove element e
+	 *@return element which was removed from list
+	 *
+	 */
 	@Override
 	public E remove(int i) {
 		Node<E> previousNode;
@@ -200,7 +233,22 @@ public class SinglyLinkedList<E> implements List<E> {
 		}
 
 	}
-
+	
+	public E first() {
+		if(head != null)
+		return head.getElement(); else {
+			return null;
+		}
+		}
+	
+	public E last() {
+		if(size > 0) {
+			return get(size-1);
+		} else {
+			return null;
+		}
+	}
+	
 	@Override
 	public void addLast(E e) {
 		this.add(size, e);
@@ -222,47 +270,14 @@ public class SinglyLinkedList<E> implements List<E> {
 			currentNode = currentNode.next;
 
 		}
-		
+		sb.delete(sb.lastIndexOf(", "),sb.lastIndexOf(", ") + 2);
 		sb.append("]");
 
 		return sb.toString();
 	}
 	
 
-	public static void main(String[] args) {
-//		SinglyLinkedList<Integer> ll = new SinglyLinkedList<Integer>();
-//
-////		for (int i = 0; i < 5; i++) {
-////			ll.add(0, 1);
-////		}
-//		for (int i = 0; i < 5; i++) {
-//			ll.addFirst(i);
-//		}
-//		for (int i = 0; i < 5; i++) {
-//			ll.addLast(i);
-//		}
-//
-//		System.out.println();
-//
-//		for (int i = 0; i < 5; i++) {
-//			System.out.println(ll.get(i));
-//		}
-//
-//		for (int i = 0; i < 5; i++) {
-//			System.out.println(ll.get(i));
-//		}
-//
-//		System.out.println(ll.isEmpty());
-//
-//		System.out.println(ll.toString());
-//
-//
-//		while(ll.size() != 0) {
-//		ll.removeFirst();
-//		System.out.println(ll.size());
-//		System.out.println(ll.toString());
-//		}
-	}
+	
 	
 	
 }

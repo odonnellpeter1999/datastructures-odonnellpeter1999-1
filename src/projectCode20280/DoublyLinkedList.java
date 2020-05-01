@@ -131,7 +131,20 @@ public class DoublyLinkedList<E> implements List<E>{
 	}
 	
 	public E first() {
-		return head.getElement();
+		if(head != null) {
+			return head.getElement();
+		} else {
+			return null;
+		}
+	}
+	
+	
+	public E last() {
+		if(size > 0)
+		return get(size-1);
+		else {
+			return null;
+		}
 	}
 
 	@Override
@@ -256,6 +269,7 @@ public class DoublyLinkedList<E> implements List<E>{
 			currentNode = currentNode.next;
 
 		}
+		sb.delete(sb.lastIndexOf(", "),sb.lastIndexOf(", ") + 2);
 		sb.append("]");
 
 		return sb.toString();

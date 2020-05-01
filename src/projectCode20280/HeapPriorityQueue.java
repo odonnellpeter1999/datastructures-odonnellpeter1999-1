@@ -116,9 +116,9 @@ public class HeapPriorityQueue<K,V> extends AbstractPriorityQueue<K,V> {
   public Entry<K,V> min() {
 	  Entry<K,V> small = heap.get(0);
 	  
-	  for(int i = 0;i< heap.size();i++) {
-		  if(compare(small, heap.get(i)) < 0) {
-			  small = heap.get(i);
+	  for(Entry<K, V> e : heap) {
+		  if(compare(small, e) > 0) {
+			  small = e;
 		  }
 	  }
 	  
@@ -137,6 +137,7 @@ public class HeapPriorityQueue<K,V> extends AbstractPriorityQueue<K,V> {
 	  checkKey(key);
 	  Entry<K,V> newest = new PQEntry<>(key,value);
 	  heap.add(heap.size(),newest);
+	  heapify();
 	  return newest;
 	  
 	  
@@ -167,5 +168,38 @@ public class HeapPriorityQueue<K,V> extends AbstractPriorityQueue<K,V> {
         System.out.println("Invalid right child");
     }
   }
+  
+  
+  
+  public String toString() {
+	  
+	  StringBuilder sb = new StringBuilder("[");
+	  
+	  
+	  for(Entry<K, V> e : heap) {
+		  sb.append(e.getValue() + ", ");
+	  }
+	  
+	 if(size() > 0)
+	  sb.delete(sb.lastIndexOf(", "),sb.lastIndexOf(", ") + 2);
+	  
+	  sb.append("]");
+	  
+	  return sb.toString();
+	  
+	  
+  }
+  public static void main(String args[]) {
+	  
+	  Integer[] arr = new Integer[] {35,26,15,24,33,4,12,1,23,21,2,5};
+	  
+	  HeapPriorityQueue<Integer, String> pq = new HeapPriorityQueue<>();
+
+		for(Integer i : arr) pq.insert(i, Integer.toString(i));
+		
+		System.out.println(pq.toString());
+		
+	}
+
 }
 

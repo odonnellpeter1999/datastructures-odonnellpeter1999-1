@@ -3,6 +3,8 @@ package projectCode20280;
 import java.util.ArrayList;
 import java.util.Random;
 
+
+
 /**
  * An abstract base class supporting Map implementations that use hash
  * tables with MAD compression.
@@ -69,6 +71,7 @@ public abstract class AbstractHashMap<K, V> extends AbstractMap<K, V> {
      */
     @Override
     public V get(K key) {
+    	System.out.println(key);
         return bucketGet(hashValue(key), key);
     }
 
@@ -101,6 +104,7 @@ public abstract class AbstractHashMap<K, V> extends AbstractMap<K, V> {
             resize(2 * capacity - 1);        // (or find a nearby prime)
         return answer;
     }
+    
 
     // private utilities
 
@@ -108,9 +112,41 @@ public abstract class AbstractHashMap<K, V> extends AbstractMap<K, V> {
      * Hash function applying MAD method to default hash code.
      */
     private int hashValue(K key) {
-        // TODO
-    	return 0;
+    	
+//    	Random ran = new Random();
+//    	
+//    	int N = size();
+//    	int p = nextPrime(N);
+//    	int a = ran.nextInt() % p-1;
+//    	int b = ran.nextInt() % p-1;
+//    	
+//    	if(a < 0 ) {
+//    		a = a * -1; 
+//    	}
+//    	
+//    	if(b < 0 ) {
+//    		b = b * -1; 
+//    	}
+//    	
+//    	System.out.println("N:" + N + " P:" + p + " A:" + a + " B:" + b);
+//    	
+//    	if(N != 0)
+//    	return ((a *Integer.parseInt(key.toString()) + b) % p) % N ;
+//    	
+//    	else {
+//    		return ((a *Integer.parseInt(key.toString()) + b) % p);
+//    	}
+    	
+    	return (int) (Math.abs(key.hashCode()*scale+shift) % prime) % capacity;
     }
+    
+    
+    
+    
+    
+    
+    
+    
 
     /**
      * Updates the size of the hash table and rehashes all entries.

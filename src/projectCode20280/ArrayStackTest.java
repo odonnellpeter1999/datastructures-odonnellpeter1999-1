@@ -81,7 +81,7 @@ class ArrayStackTest {
 		q.push(3);
 		q.push(4);
 		
-		assertEquals("[1, 2, 3, 4, ]", q.toString());
+		assertEquals("[1, 2, 3, 4 ]", q.toString());
 	}
 
 }

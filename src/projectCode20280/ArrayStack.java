@@ -17,16 +17,25 @@ public class ArrayStack<E> implements Stack<E> {
 	
 	
 
+	/**
+	 *This method returns size of stack
+	 */
 	@Override
 	public int size() {
 		return top  + 1;
 	}
 
+	/**
+	 *This method returns true when stack is empty
+	 */
 	@Override
 	public boolean isEmpty() {
 		return (top == -1);
 	}
 
+	/**
+	 *This method adds an element to the top of the stack
+	 */
 	@Override
 	public void push(E e) {
 		data[top + 1] = e;
@@ -35,11 +44,19 @@ public class ArrayStack<E> implements Stack<E> {
 		
 	}
 
+	/**
+	 * This method returns the element which is on top of the stack but does not remove element from stack
+	 */
 	@Override
 	public E top() {
 		return data[top];
 	}
+	
 
+	/**
+	 *This method removes and returns the element which was on top of stack
+	 *@return Element which was in top position of stack
+	 */
 	@Override
 	public E pop() {
 		E temp = data[top];
@@ -48,32 +65,32 @@ public class ArrayStack<E> implements Stack<E> {
 		return temp;
 		
 	}
+	
+	/**
+	 *This method returns the stack in string form
+	 */
 	@Override 
 	public String toString() {
+		
+		if(data[0] == null) {
+			return "STACK IS EMPTY";
+		}
+		
+		
 		StringBuilder sb = new StringBuilder();
 		
 		sb.append("[");
-		for(int i = top;i >= 0 ;i--) {
+		for(int i = 0;i < top + 1 ;i++) {
 			sb.append(data[i] + ", ");
 			
 			}
 		
-		sb.append("]");
+	
+		sb.delete(sb.lastIndexOf(", "),sb.lastIndexOf(", ") + 2);
+		sb.append(" ]");
+		
 		return sb.toString();
 	}
 	
-	public static void main(String[] args) {
-		ArrayStack<String> as = new ArrayStack<String>(1000);
-		
-		as.push("H");
-		as.push("A");
-		as.push("A");
-	//	System.out.println(as.toString());
-		System.out.print(as.pop());
-		System.out.print(as.pop());
-		System.out.print(as.pop());
-		System.out.println(as);
-
-	}
 
 }
